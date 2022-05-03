@@ -46,6 +46,7 @@ cd alpine
 
 # Do pivot_root to put me on the container
 # filesystem
+## Need to make the container directory a bind mount! ##
 mkdir oldroot
 pivot_root . oldroot
 
@@ -54,13 +55,13 @@ pivot_root . oldroot
 mount
 
 # Unmount everything (including the proc we mounted)
-mount -a
+umount -a
 
 # Mount a new proc filesystem
 mount -t proc none /proc
 
 # Unmount old root
-unmount -l /oldroot
+umount -l /oldroot
 
 # Really go into container. This is basically handing off
 # execution to the container. Before we were running bash
